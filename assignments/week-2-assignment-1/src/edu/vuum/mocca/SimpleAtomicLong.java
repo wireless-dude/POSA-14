@@ -46,9 +46,14 @@ class SimpleAtomicLong
     public long get() {
         // TODO - you fill in here
     	readlock.lock();
+    	try{
     	long value = mValue;
-    	readlock.unlock();
     	return value;
+    	}
+    	finally
+    	{
+    	readlock.unlock();
+    	}
     }
 
     /**
@@ -59,10 +64,13 @@ class SimpleAtomicLong
     public long decrementAndGet() {
         // TODO - you fill in here
     	writelock.lock();
-    	mValue--;
-    	long value = mValue;
+    	try{
+    	return --mValue;
+    	} 
+    	finally
+    	{
     	writelock.unlock();
-    	return value;
+    	}
     }
 
     /**
@@ -73,10 +81,13 @@ class SimpleAtomicLong
     public long getAndIncrement() {
         // TODO - you fill in here
     	writelock.lock();
-    	long value = mValue;
-    	mValue++;
+    	try{
+    	return mValue++;
+    	} 
+    	finally
+    	{
     	writelock.unlock();
-    	return value;
+    	}
     }
 
     /**
@@ -87,10 +98,13 @@ class SimpleAtomicLong
     public long getAndDecrement() {
         // TODO - you fill in here
     	writelock.lock();
-    	long value = mValue;
-    	mValue--;
+    	try{
+    	return mValue--;
+    	} 
+    	finally
+    	{
     	writelock.unlock();
-    	return value;
+    	}
     }
 
     /**
@@ -102,10 +116,13 @@ class SimpleAtomicLong
         // TODO - you fill in here
 
     	writelock.lock();
-    	mValue++;
-    	long value = mValue;
+    	try{
+    	return ++mValue;
+    	} 
+    	finally
+    	{
     	writelock.unlock();
-    	return value;
+    	}
     }
 }
 
